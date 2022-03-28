@@ -1,5 +1,5 @@
 import Product from "../models/product"
-
+import slugify from "slugify";
 
 export const list = async (req, res) => {
     try {
@@ -24,6 +24,7 @@ export const detail = async (req,res) => {
     
 };
 export const add = async (req, res) => {
+    req.body.slug = slugify(req.body.name)
     try {
         const product = await new Product(req.body).save();
         res.json(product);
